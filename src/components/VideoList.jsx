@@ -1,4 +1,3 @@
-import exampleVideoData from '../data/exampleVideoData.js';
 import VideoListEntry from './VideoListEntry.js';
 
 var VideoList = (props) => (
