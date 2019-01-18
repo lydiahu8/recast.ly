@@ -1,6 +1,8 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
+import searchYoutube from '../lib/searchYoutube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,8 +19,22 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    var options = {
+      query: 'cats',
+      max: 5,
+      key: YOUTUBE_API_KEY
+    };
+    
+    searchYoutube(options, (data) => {
+      this.setState({
+        currentVideo: data[0],
+        videos: data
+      });
+    });
+  }
+
   render() {
-    const { currentVideo, videos } = this.state;
 
     return (
       <div>
@@ -29,10 +45,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={currentVideo}/>
+            <VideoPlayer video={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList onClick={this.onVideoListEntryClick.bind(this)} videos={videos}/>
+            <VideoList onClick={this.onVideoListEntryClick.bind(this)} videos={this.state.videos}/>
           </div>
         </div>
       </div>
