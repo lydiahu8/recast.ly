@@ -1,8 +1,9 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
-import searchYoutube from '../lib/searchYoutube.js';
+import searchYouTube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,12 +22,27 @@ class App extends React.Component {
 
   componentDidMount() {
     var options = {
-      query: 'cats',
+      query: 'dogs',
       max: 5,
       key: YOUTUBE_API_KEY
     };
     
-    searchYoutube(options, (data) => {
+    searchYouTube(options, (data) => {
+      this.setState({
+        currentVideo: data[0],
+        videos: data
+      });
+    });
+  }
+
+  searchVideos(query) {
+    var options = {
+      query: query,
+      max: 5,
+      key: YOUTUBE_API_KEY
+    };
+    
+    searchYouTube(options, (data) => {
       this.setState({
         currentVideo: data[0],
         videos: data
@@ -40,7 +56,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search searchYT={this.searchVideos.bind(this)}/>
           </div>
         </nav>
         <div className="row">
