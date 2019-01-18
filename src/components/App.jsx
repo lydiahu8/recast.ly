@@ -12,6 +12,8 @@ class App extends React.Component {
       currentVideo: exampleVideoData[0],
       videos: exampleVideoData,
     };
+    this.searchVideos = this.searchVideos.bind(this);
+    this.onVideoListEntryClick = this.onVideoListEntryClick.bind(this);
   }
   
   onVideoListEntryClick(video) {
@@ -51,20 +53,20 @@ class App extends React.Component {
   }
 
   render() {
-
+    const { currentVideo, videos} = this.state;
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search searchYT={this.searchVideos.bind(this)}/>
+            <Search searchYT={this.searchVideos}/>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.currentVideo}/>
+            <VideoPlayer video={currentVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList onClick={this.onVideoListEntryClick.bind(this)} videos={this.state.videos}/>
+            <VideoList onClick={this.onVideoListEntryClick} videos={videos}/>
           </div>
         </div>
       </div>

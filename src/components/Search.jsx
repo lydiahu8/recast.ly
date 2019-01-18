@@ -1,4 +1,4 @@
-var Search = (props) => (
+const Search = (props) => (
   <div className="search-bar form-inline">
     <input className="form-control" type="text" onChange={ (event) => {props.searchYT(event.target.value);} }/>
     <button className="btn hidden-sm-down">
