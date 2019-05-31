@@ -15,7 +15,7 @@ class App extends React.Component {
     this.searchVideos = this.searchVideos.bind(this);
     this.onVideoListEntryClick = this.onVideoListEntryClick.bind(this);
   }
-  
+
   onVideoListEntryClick(video) {
     this.setState({
       currentVideo: video
@@ -24,11 +24,11 @@ class App extends React.Component {
 
   componentDidMount() {
     var options = {
-      query: 'dogs',
+      query: 'corgis',
       max: 5,
       key: YOUTUBE_API_KEY
     };
-    
+
     searchYouTube(options, (data) => {
       this.setState({
         currentVideo: data[0],
@@ -43,7 +43,7 @@ class App extends React.Component {
       max: 5,
       key: YOUTUBE_API_KEY
     };
-    
+
     searchYouTube(options, (data) => {
       this.setState({
         currentVideo: data[0],
@@ -53,20 +53,20 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentVideo, videos} = this.state;
+    const { currentVideo, videos } = this.state;
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search searchYT={this.searchVideos}/>
+            <Search searchYT={this.searchVideos} />
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={currentVideo}/>
+            <VideoPlayer video={currentVideo} />
           </div>
           <div className="col-md-5">
-            <VideoList onClick={this.onVideoListEntryClick} videos={videos}/>
+            <VideoList onClick={this.onVideoListEntryClick} videos={videos} />
           </div>
         </div>
       </div>
